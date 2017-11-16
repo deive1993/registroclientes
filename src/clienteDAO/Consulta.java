@@ -24,12 +24,22 @@ public class Consulta {
    String url = "jdbc:mysql://localhost:3306/basecliente";
    String driver= "com.mysql.jdbc.Driver";  
    
-   public void grabarCliente(String palabra) throws SQLException{
+   //public void grabarCliente(String nombre, String apellido, Integer dni, String email, String telefono, String celular, String calle, String altura, String pisoDto ) throws SQLException{
+   public void grabarCliente(String nombre, String apellido, String dni, String email, String telefono, String celular, String calle, String altura, String pisoDto ) throws SQLException{
        try {
             Class.forName(driver);
             conect=DriverManager.getConnection(url,user,password);
-            grabar=conect.prepareStatement("insert into palabras (palabra) values (?)");
-            grabar.setString(1, palabra);
+            grabar=conect.prepareStatement("insert into cliente (nombre, apellido, dni, email, telefono, celular, calle, altura, pisoDto) values (?,?,?,?,?,?,?,?,?)");
+            grabar.setString(1, nombre);
+            grabar.setString(2, apellido);
+           // grabar.setInt(3, dni);
+            grabar.setString(3, dni);
+            grabar.setString(4, email);
+            grabar.setString(5, telefono);
+            grabar.setString(6, celular);
+            grabar.setString(7, calle);
+            grabar.setString(8, altura);
+            grabar.setString(9, pisoDto);
             grabar.executeUpdate();
 
               
@@ -48,9 +58,9 @@ public class Consulta {
             Class.forName(driver);
             conect=DriverManager.getConnection(url,user,password);
            // s=conect.prepareStatement("UPDATE palabras SET palabra'"+texto.getText());
-            s=conect.prepareStatement("UPDATE palabras SET palabra='"+texto.getText()+"'");
-            s.setString(1, palabra);
-            s.executeUpdate();
+            grabar=conect.prepareStatement("UPDATE palabras SET palabra='"+texto.getText()+"'");
+            grabar.setString(1, palabra);
+            grabar.executeUpdate();
 
               
            } 
