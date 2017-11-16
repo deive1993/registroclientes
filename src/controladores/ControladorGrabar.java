@@ -28,21 +28,38 @@ public class ControladorGrabar implements MouseListener{
     private JTextField txtCalle;
     private JTextField txtAltura;
     private JTextField txtPiso;
-    private Integer dni;
+    
 
+     public void limpiar(){
+       txtNombre.setText("");
+       txtApellido.setText("");
+       txtDni.setText("");
+       txtEmail.setText("");
+       txtTelefono.setText("");
+       txtCelular.setText("");
+       txtAltura.setText("");
+       txtCalle.setText("");
+       txtPiso.setText("");
+   }
+       
+       
     @Override
-    public void mouseClicked(MouseEvent evt) {
+    public void mouseClicked(MouseEvent e) {
         Consulta consulta = new Consulta();
+        System.out.println("datos guardados");
                try {
-           
+                   
         //   consulta.grabarCliente(txtNombre.getText(), txtApellido.getText(), txtDni.getText, txtEmail.getText(), txtTelefono.getText(), txtCelular.getText(), txtCalle.getText(), txtAltura.getText(), txtPiso.getText());
            consulta.grabarCliente(txtNombre.getText(), txtApellido.getText(), txtDni.getText(), txtEmail.getText(), txtTelefono.getText(), txtCelular.getText(), txtCalle.getText(), txtAltura.getText(), txtPiso.getText());
+           
            JOptionPane.showMessageDialog(null, "datos guardadas exitosamente");
        } 
-       
+     //  int dni = Integer.parseInt(txtDni);
        catch (SQLException ex) {
            Logger.getLogger(ControladorGrabar.class.getName()).log(Level.SEVERE, null, ex);
        }
+    
+               limpiar();
     }
 
     @Override

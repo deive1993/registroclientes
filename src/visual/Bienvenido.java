@@ -22,6 +22,7 @@ public class Bienvenido extends javax.swing.JFrame {
         this.setLocationRelativeTo(this);
         this.setTitle("BIENVENIDO");
         
+
         
         controladorBuscar = new ControladorBuscar();
         btnBuscar.addMouseListener(controladorBuscar);
@@ -32,6 +33,17 @@ public class Bienvenido extends javax.swing.JFrame {
         
     }
 
+    
+      void bloquear(){
+        txtDnis.setEnabled(false);
+        txtEmails.setEnabled(true);
+       
+            }
+     void desbloquear(){
+        txtDnis.setEnabled(true);
+        txtEmails.setEnabled(false);
+       
+            }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,8 +55,8 @@ public class Bienvenido extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
-        txtDni = new javax.swing.JTextField();
+        txtEmails = new javax.swing.JTextField();
+        txtDnis = new javax.swing.JTextField();
         btnSalir = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         lblBienvenido = new javax.swing.JLabel();
@@ -57,10 +69,24 @@ public class Bienvenido extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Malgun Gothic", 1, 12)); // NOI18N
         jLabel3.setText("DNI : ");
 
-        btnSalir.setBackground(new java.awt.Color(102, 153, 255));
+        txtEmails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailsActionPerformed(evt);
+            }
+        });
+
+        txtDnis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDnisActionPerformed(evt);
+            }
+        });
+
+        btnSalir.setBackground(new java.awt.Color(153, 153, 153));
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Salir.png"))); // NOI18N
         btnSalir.setText("SALIR");
 
-        btnBuscar.setBackground(new java.awt.Color(102, 153, 255));
+        btnBuscar.setBackground(new java.awt.Color(153, 153, 153));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btnBuscar.setText("BUSCAR");
 
         lblBienvenido.setFont(new java.awt.Font("Malgun Gothic", 3, 24)); // NOI18N
@@ -77,18 +103,18 @@ public class Bienvenido extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnSalir)
-                                .addGap(35, 35, 35)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnBuscar))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txtDnis, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtEmails, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addComponent(lblBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(50, 50, 50)
@@ -101,16 +127,16 @@ public class Bienvenido extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(lblBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
-                .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDnis, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmails, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalir)
-                    .addComponent(btnBuscar))
-                .addContainerGap(48, Short.MAX_VALUE))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(42, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(99, 99, 99)
@@ -120,6 +146,18 @@ public class Bienvenido extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtDnisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDnisActionPerformed
+
+        desbloquear();
+        txtDnis.transferFocus();
+    }//GEN-LAST:event_txtDnisActionPerformed
+
+    private void txtEmailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailsActionPerformed
+
+        bloquear();
+        txtEmails.transferFocus();
+    }//GEN-LAST:event_txtEmailsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,8 +170,8 @@ public class Bienvenido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblBienvenido;
-    private javax.swing.JTextField txtDni;
-    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtDnis;
+    private javax.swing.JTextField txtEmails;
     // End of variables declaration//GEN-END:variables
 
     private ControladorSalir controladorSalir;
