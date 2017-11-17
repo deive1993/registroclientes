@@ -6,6 +6,7 @@
 package cliente;
 
 import visual.Bienvenido;
+import visual.Registro;
 
 /**
  *
@@ -13,8 +14,11 @@ import visual.Bienvenido;
  */
 public class Principal {
     public static void main(String[] args) {
-        Bienvenido bienvenido = new Bienvenido();
-        bienvenido.setVisible(true);
+       
+        Registro registrar = new Registro();
+        registrar.setVisible(true);
+        /*Bienvenido bienvenido = new Bienvenido();
+        bienvenido.setVisible(true);*/
     }
     
 }

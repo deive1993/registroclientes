@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import models.Cliente;
 
 /**
  *
@@ -28,6 +29,20 @@ public class ControladorGrabar implements MouseListener{
     private JTextField txtCalle;
     private JTextField txtAltura;
     private JTextField txtPiso;
+
+    public ControladorGrabar(JTextField txtNombre, JTextField txtApellido, JTextField txtDni, JTextField txtEmail, JTextField txtTelefono, JTextField txtCelular, JTextField txtCalle, JTextField txtAltura, JTextField txtPiso) {
+        this.txtNombre = txtNombre;
+        this.txtApellido = txtApellido;
+        this.txtDni = txtDni;
+        this.txtEmail = txtEmail;
+        this.txtTelefono = txtTelefono;
+        this.txtCelular = txtCelular;
+        this.txtCalle = txtCalle;
+        this.txtAltura = txtAltura;
+        this.txtPiso = txtPiso;
+    }
+ 
+    
     
 
      public void limpiar(){
@@ -46,11 +61,12 @@ public class ControladorGrabar implements MouseListener{
     @Override
     public void mouseClicked(MouseEvent e) {
         Consulta consulta = new Consulta();
+        Cliente cliente = new Cliente(txtNombre.getText(), txtApellido.getText(), Integer.valueOf(txtDni.getText()) , txtEmail.getText(), txtTelefono.getText(), txtCelular.getText(), txtCalle.getText(), txtAltura.getText(), txtPiso.getText());
+        
         System.out.println("datos guardados");
                try {
                    
-        //   consulta.grabarCliente(txtNombre.getText(), txtApellido.getText(), txtDni.getText, txtEmail.getText(), txtTelefono.getText(), txtCelular.getText(), txtCalle.getText(), txtAltura.getText(), txtPiso.getText());
-           consulta.grabarCliente(txtNombre.getText(), txtApellido.getText(), txtDni.getText(), txtEmail.getText(), txtTelefono.getText(), txtCelular.getText(), txtCalle.getText(), txtAltura.getText(), txtPiso.getText());
+           consulta.grabarCliente(cliente);
            
            JOptionPane.showMessageDialog(null, "datos guardadas exitosamente");
        } 

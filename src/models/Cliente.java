@@ -11,6 +11,7 @@ package models;
  */
 public class Cliente {
    // private int (8) pk autoin
+    private Integer id = null;
     private String nombre;
     private String apellido;
     private Integer dni;
@@ -19,7 +20,28 @@ public class Cliente {
     private String celular;
     private String calle;
     private String altura;
-    private String piso;
+    private String pisoDto;
+
+    public Cliente(String nombre, String apellido, Integer dni, String email, String telefono, String celular, String calle, String altura, String pisoDto) {
+        
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.email = email;
+        this.telefono = telefono;
+        this.celular = celular;
+        this.calle = calle;
+        this.altura = altura;
+        this.pisoDto = pisoDto;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
@@ -85,24 +107,13 @@ public class Cliente {
         this.altura = altura;
     }
 
-    public String getPiso() {
-        return piso;
+    public String getPisoDto() {
+        return pisoDto;
     }
 
-    public void setPiso(String piso) {
-        this.piso = piso;
+    public void setPisoDto(String pisoDto) {
+        this.pisoDto = pisoDto;
     }
 
-    public Cliente(String nombre, String apellido, Integer dni, String email, String telefono, String celular, String calle, String altura, String piso) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.email = email;
-        this.telefono = telefono;
-        this.celular = celular;
-        this.calle = calle;
-        this.altura = altura;
-        this.piso = piso;
-    }
     
 }

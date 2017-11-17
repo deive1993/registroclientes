@@ -20,20 +20,19 @@ import visual.Registro;
  * @author PC12
  */
 public class ControladorBuscar implements MouseListener{
-    private JTextField txtNombre;
-    private JTextField txtApellido;
-    private JTextField txtDni;
-    private JTextField txtEmail;
-    private JTextField txtTelefono;
-    private JTextField txtCelular;
-    private JTextField txtCalle;
-    private JTextField txtAltura;
-    private JTextField txtPiso;
+   
+    private JTextField txtDnis;
+    private JTextField txtEmails;
+
+    public ControladorBuscar(JTextField txtDnis, JTextField txtEmails) {
+        this.txtDnis = txtDnis;
+        this.txtEmails = txtEmails;
+    }
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        Registro registro = new Registro();
-        registro.setVisible(true);
+
         
         Consulta consulta = new Consulta();
           System.out.println("buscar");

@@ -24,7 +24,7 @@ public class Bienvenido extends javax.swing.JFrame {
         
 
         
-        controladorBuscar = new ControladorBuscar();
+        controladorBuscar = new ControladorBuscar(txtDnis, txtEmails);
         btnBuscar.addMouseListener(controladorBuscar);
         
         controladorSalir = new ControladorSalir();

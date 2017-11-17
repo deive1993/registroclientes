@@ -24,7 +24,7 @@ public class Registro extends javax.swing.JFrame {
         
       
         
-        controladorGrabar = new ControladorGrabar();
+        controladorGrabar = new ControladorGrabar(txtNombre, txtApellido, txtDni, txtEmail, txtTelefono, txtCelular, txtCalle, txtAltura, txtPiso);
         btnGrabar.addMouseListener(controladorGrabar);
         
         controladorCancelar = new ControladorCancelar();
