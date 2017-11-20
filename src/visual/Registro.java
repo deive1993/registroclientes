@@ -5,18 +5,30 @@
  */
 package visual;
 
+import controladores.ControladorBuscar;
 import controladores.ControladorCancelar;
 import controladores.ControladorGrabar;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author PC12
  */
 public class Registro extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Registro
-     */
+      Connection conect;
+   PreparedStatement grabar;
+    ResultSet resultado;
+   String user = "root";
+   String password = "";
+   String url = "jdbc:mysql://localhost:3306/basecliente";
+   String driver= "com.mysql.jdbc.Driver"; 
     public Registro() {
         initComponents();
         this.setLocationRelativeTo(this);
@@ -61,6 +73,9 @@ public class Registro extends javax.swing.JFrame {
         txtDni = new javax.swing.JTextField();
         btnGrabar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        btnBuscarcli = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        txtId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -158,6 +173,26 @@ public class Registro extends javax.swing.JFrame {
             }
         });
 
+        btnBuscarcli.setBackground(new java.awt.Color(102, 153, 255));
+        btnBuscarcli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar.png"))); // NOI18N
+        btnBuscarcli.setText("BUSCAR");
+        btnBuscarcli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarcliActionPerformed(evt);
+            }
+        });
+
+        btnActualizar.setBackground(new java.awt.Color(102, 153, 255));
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar.png"))); // NOI18N
+        btnActualizar.setText("ACTUALIZAR");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        txtId.setText("jTextField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -177,33 +212,43 @@ public class Registro extends javax.swing.JFrame {
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnGrabar)
-                                .addGap(35, 35, 35)
-                                .addComponent(btnCancelar))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtEmail)
-                                .addComponent(txtNombre)
-                                .addComponent(txtPiso, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                                .addComponent(txtAltura, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                                .addComponent(txtCalle, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                                .addComponent(txtCelular, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                                .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                                .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                                .addComponent(txtDni, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)))
-                        .addGap(0, 50, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtEmail)
+                            .addComponent(txtNombre)
+                            .addComponent(txtPiso, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                            .addComponent(txtAltura, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                            .addComponent(txtCalle, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                            .addComponent(txtCelular, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                            .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                            .addComponent(txtDni, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(btnGrabar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBuscarcli)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnActualizar))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(90, 90, 90)
                         .addComponent(lblBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCancelar)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -239,11 +284,14 @@ public class Registro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGrabar)
-                    .addComponent(btnCancelar))
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnBuscarcli, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancelar)
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGrabar))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -303,12 +351,77 @@ public class Registro extends javax.swing.JFrame {
         btnCancelar.transferFocus();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnBuscarcliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarcliActionPerformed
+
+         try {
+            Class.forName(driver);
+            conect=DriverManager.getConnection(url,user,password);
+            grabar=conect.prepareStatement("SELECT * FROM cliente WHERE dni= ?");
+            grabar.setString(1, txtDni.getText());
+            resultado = grabar.executeQuery();
+            if(resultado.next()){
+                txtNombre.setText(resultado.getString("nombre"));
+                txtApellido.setText(resultado.getString("apellido"));
+                txtDni.setText(resultado.getString("dni"));
+                txtEmail.setText(resultado.getString("email"));
+                txtTelefono.setText(resultado.getString("telefono"));
+                txtCelular.setText(resultado.getString("celular"));
+                txtCalle.setText(resultado.getString("calle"));
+                txtAltura.setText(resultado.getString("altura"));
+                txtPiso.setText(resultado.getString("pisoDto"));
+                JOptionPane.showMessageDialog(null, "datos encontrados");
+            }else{
+                JOptionPane.showMessageDialog(null, "datos no encontrados");
+            }
+            } catch (SQLException ex) {
+            Logger.getLogger(ControladorBuscar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+              Logger.getLogger(ControladorBuscar.class.getName()).log(Level.SEVERE, null, ex);
+          }
+       
+    }//GEN-LAST:event_btnBuscarcliActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+    
+                 try {
+            Class.forName(driver);
+            conect=DriverManager.getConnection(url,user,password);
+            grabar=conect.prepareStatement("UPDATE cliente SET nombre = ?, apellido = ?, dni = ?, email = ?, telefono = ?, celular = ?, calle = ?, altura = ?, pisoDto = ? WHERE id = ? ");
+        
+            
+            grabar.setString(1, txtNombre.getText());
+            grabar.setString(2, txtApellido.getText());
+            grabar.setInt(3, Integer.valueOf(txtDni.getText()));
+            grabar.setString(4, txtEmail.getText());
+            grabar.setString(5, txtTelefono.getText());
+            grabar.setString(6, txtCelular.getText());
+            grabar.setString(7, txtCalle.getText());
+            grabar.setString(8, txtAltura.getText());
+            grabar.setString(9, txtPiso.getText());
+            grabar.setString(10, txtId.getText());
+            grabar.executeUpdate();
+                JOptionPane.showMessageDialog(null, "datos actualizados");
+
+            
+                 
+                 
+                 
+                 } catch (SQLException ex) {
+            Logger.getLogger(ControladorBuscar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+              Logger.getLogger(ControladorBuscar.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscarcli;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGrabar;
     private javax.swing.JLabel jLabel1;
@@ -327,6 +440,7 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPiso;
     private javax.swing.JTextField txtTelefono;

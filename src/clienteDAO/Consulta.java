@@ -7,6 +7,7 @@ package clienteDAO;
 
 import com.sun.org.apache.bcel.internal.generic.RETURN;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
+import controladores.ControladorBuscar;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -31,6 +32,15 @@ public class Consulta {
    String url = "jdbc:mysql://localhost:3306/basecliente";
    String driver= "com.mysql.jdbc.Driver";  
 
+   JTextField txtNombre;
+   JTextField txtApellido;
+   JTextField txtDni;
+   JTextField txtEmail;
+   JTextField txtTelefono;
+   JTextField txtCelular;
+   JTextField txtCalle;
+   JTextField txtAltura;
+   JTextField txtPiso;
    
    public void grabarCliente(Cliente cliente  ) throws SQLException{
         
@@ -38,6 +48,7 @@ public class Consulta {
            
             Class.forName(driver);
             conect=DriverManager.getConnection(url,user,password);
+            if(cliente.getId()== null){
             grabar=conect.prepareStatement("insert into cliente (nombre, apellido, dni, email, telefono, celular, calle, altura, pisoDto) values (?,?,?,?,?,?,?,?,?)");
             
             grabar.setString(1, cliente.getNombre());
@@ -49,9 +60,22 @@ public class Consulta {
             grabar.setString(7, cliente.getCalle());
             grabar.setString(8, cliente.getAltura());
             grabar.setString(9, cliente.getPisoDto());
-            grabar.executeUpdate();
 
-              
+             }else{
+                  grabar=conect.prepareStatement("UPDATE cliente SET nombre = ?, apellido = ?, dni = ?, email = ?, telefono = ?, celular = ?, calle = ?, altura = ?, pisoDto = ? WHERE id = ? ");
+                 
+            grabar.setString(1, cliente.getNombre());
+            grabar.setString(2, cliente.getApellido());
+            grabar.setInt(3, cliente.getDni());
+            grabar.setString(4, cliente.getEmail());
+            grabar.setString(5, cliente.getTelefono());
+            grabar.setString(6, cliente.getCelular());
+            grabar.setString(7, cliente.getCalle());
+            grabar.setString(8, cliente.getAltura());
+            grabar.setString(9, cliente.getPisoDto());
+            }
+             grabar.executeUpdate();
+
            } 
         catch (ClassNotFoundException e) {
               JOptionPane.showMessageDialog(null, e);}
@@ -62,8 +86,7 @@ public class Consulta {
        conect.close();
    }
    
-     
-   public Cliente buscarCliente (String email, String dni)throws SQLException{
+    public Cliente buscarCliente (String email, String dni)throws SQLException{
        Integer rsta = 0;
        Cliente unCliente = null;
        
@@ -73,9 +96,10 @@ public class Consulta {
             
             if(email!=null)
           
-                    grabar=conect.prepareStatement("SELECT dni FROM cliente ");
+                    grabar=conect.prepareStatement("SELECT * FROM cliente WHERE dni= ?");
+            
             else{
-                grabar=conect.prepareStatement("SELECT dni FROM cliente ");
+                grabar=conect.prepareStatement("SELECT * FROM cliente WHERE email= ?");
                 
             }
             
@@ -90,7 +114,87 @@ public class Consulta {
        }
       return unCliente;
    }
-  /* 
+    
+    
+    public Cliente buscarCliente (Cliente cliente)throws SQLException{
+       Cliente unCliente = null;
+        try {
+            Class.forName(driver);
+            conect=DriverManager.getConnection(url,user,password);
+            grabar=conect.prepareStatement("SELECT * FROM cliente WHERE dni= ?");
+            grabar.setString(1, txtDni.getText());
+            ResultSet resultado = grabar.executeQuery();
+            if(resultado.next()){
+                txtNombre.setText(resultado.getString("nombre"));
+                txtApellido.setText(resultado.getString("apellido"));
+                txtDni.setText(resultado.getString("dni"));
+                txtEmail.setText(resultado.getString("email"));
+                txtTelefono.setText(resultado.getString("telefono"));
+                txtCelular.setText(resultado.getString("celular"));
+                txtCalle.setText(resultado.getString("calle"));
+                txtAltura.setText(resultado.getString("altura"));
+                txtPiso.setText(resultado.getString("pisoDto"));
+                
+                JOptionPane.showMessageDialog(null, "datos encontrados");
+            }else{
+                JOptionPane.showMessageDialog(null, "datos no encontrados");
+            }
+      } 
+        catch (ClassNotFoundException e) {
+              JOptionPane.showMessageDialog(null, e);}
+       
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+       conect.close();
+       return null;
+    }
+   
+   /*
+   public static Cliente buscarCliente (String email)throws SQLException{
+   
+       Cliente unCliente = null;
+       //String q = "SELECT * FROM cliente" + " WHERE email='"+email+"'";
+       try{
+    
+         conect=DriverManager.getConnection(url,user,password);
+         PreparedStatement consulta = conect.prepareStatement("SELECT * FROM cliente" + " WHERE email='"+email+"'");
+         ResultSet resultado = consulta.executeQuery();
+
+      }catch(SQLException e){
+         JOptionPane.showMessageDialog(null, e);
+      }
+      unCliente= asignarCliente();
+        
+      return unCliente;
+   }
+   
+   public static Cliente asignarCliente(){
+             Cliente unCliente = null;
+             String nombre;
+             String apellido;
+             Integer dni;
+             String email;
+             String telefono;
+             String celular;
+             String calle;
+             String altura;
+             String pisoDto;
+        try {
+               while(resultado.next()){
+            rst = resultado.getInt(1);
+         }
+        } catch (Exception e) {
+        }
+      
+      return unCliente;
+                
+    }
+   
+   */
+     /* 
+  
+  
    public ArrayList<Cliente> recuperarTodas(Connection conexion) throws SQLException{
       ArrayList<Mewrua> tareas = new ArrayList<>();
       try{
