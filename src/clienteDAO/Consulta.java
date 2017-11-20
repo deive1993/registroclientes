@@ -48,8 +48,10 @@ public class Consulta {
            
             Class.forName(driver);
             conect=DriverManager.getConnection(url,user,password);
+           
+            
             if(cliente.getId()== null){
-            grabar=conect.prepareStatement("insert into cliente (nombre, apellido, dni, email, telefono, celular, calle, altura, pisoDto) values (?,?,?,?,?,?,?,?,?)");
+            grabar=conect.prepareStatement("INSERT INTO cliente (nombre, apellido, dni, email, telefono, celular, calle, altura, pisoDto) values (?,?,?,?,?,?,?,?,?)");
             
             grabar.setString(1, cliente.getNombre());
             grabar.setString(2, cliente.getApellido());
@@ -73,6 +75,7 @@ public class Consulta {
             grabar.setString(7, cliente.getCalle());
             grabar.setString(8, cliente.getAltura());
             grabar.setString(9, cliente.getPisoDto());
+            grabar.setInt(10, cliente.getId());
             }
              grabar.executeUpdate();
 
@@ -86,14 +89,30 @@ public class Consulta {
        conect.close();
    }
    
-    public Cliente buscarCliente (String email, String dni)throws SQLException{
-       Integer rsta = 0;
-       Cliente unCliente = null;
-       
+    public void buscarCliente (Cliente cliente)throws SQLException{
+     
        try {
             Class.forName(driver);
             conect=DriverManager.getConnection(url,user,password);
+            grabar=conect.prepareStatement("SELECT * FROM cliente WHERE email=? ");
+            grabar.setString(1, cliente.getEmail());
+            ResultSet resultado = grabar.executeQuery();
             
+            if(resultado.next())
+            {
+                cliente.setId(Integer.parseInt(resultado.getString("id")));
+                cliente.setNombre(resultado.getString("nombre"));
+                cliente.setApellido(resultado.getString("apellido"));
+                cliente.setDni(Integer.parseInt(resultado.getString("dni")));
+                cliente.setEmail(resultado.getString("email"));
+                cliente.setTelefono(resultado.getString("telefono"));
+                cliente.setCelular(resultado.getString("celular"));
+                cliente.setCalle(resultado.getString("calle"));
+                cliente.setAltura(resultado.getString("altura"));
+                cliente.setPisoDto(resultado.getString("pisoDto"));
+            }
+                    
+              /*      
             if(email!=null)
           
                     grabar=conect.prepareStatement("SELECT * FROM cliente WHERE dni= ?");
@@ -101,54 +120,20 @@ public class Consulta {
             else{
                 grabar=conect.prepareStatement("SELECT * FROM cliente WHERE email= ?");
                 
-            }
+            }*/
             
-         ResultSet resultado = grabar.executeQuery();
-         while(resultado.next()){
-            tareas.add(new Mewrua(resultado.getInt("codigo"), resultado.getInt("orden"), resultado.getString("nombre_mostrar")));
-         }
       }catch(SQLException ex){
          throw new SQLException(ex);
       } catch (ClassNotFoundException ex) {
            Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
        }
-      return unCliente;
+     conect.close();
    }
     
     
-    public Cliente buscarCliente (Cliente cliente)throws SQLException{
-       Cliente unCliente = null;
-        try {
-            Class.forName(driver);
-            conect=DriverManager.getConnection(url,user,password);
-            grabar=conect.prepareStatement("SELECT * FROM cliente WHERE dni= ?");
-            grabar.setString(1, txtDni.getText());
-            ResultSet resultado = grabar.executeQuery();
-            if(resultado.next()){
-                txtNombre.setText(resultado.getString("nombre"));
-                txtApellido.setText(resultado.getString("apellido"));
-                txtDni.setText(resultado.getString("dni"));
-                txtEmail.setText(resultado.getString("email"));
-                txtTelefono.setText(resultado.getString("telefono"));
-                txtCelular.setText(resultado.getString("celular"));
-                txtCalle.setText(resultado.getString("calle"));
-                txtAltura.setText(resultado.getString("altura"));
-                txtPiso.setText(resultado.getString("pisoDto"));
-                
-                JOptionPane.showMessageDialog(null, "datos encontrados");
-            }else{
-                JOptionPane.showMessageDialog(null, "datos no encontrados");
-            }
-      } 
-        catch (ClassNotFoundException e) {
-              JOptionPane.showMessageDialog(null, e);}
        
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e);
-        }
-       conect.close();
-       return null;
-    }
+      
+    
    
    /*
    public static Cliente buscarCliente (String email)throws SQLException{
