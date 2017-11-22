@@ -88,6 +88,11 @@ public class Bienvenido extends javax.swing.JFrame {
         btnBuscar.setBackground(new java.awt.Color(153, 153, 153));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
         btnBuscar.setText("BUSCAR");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         lblBienvenido.setFont(new java.awt.Font("Malgun Gothic", 3, 24)); // NOI18N
         lblBienvenido.setText("BIENVENIDO");
@@ -158,6 +163,10 @@ public class Bienvenido extends javax.swing.JFrame {
         bloquear();
         txtEmails.transferFocus();
     }//GEN-LAST:event_txtEmailsActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments

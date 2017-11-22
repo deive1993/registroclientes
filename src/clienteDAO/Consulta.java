@@ -89,18 +89,63 @@ public class Consulta {
        conect.close();
    }
    
-    public void buscarCliente (Cliente cliente)throws SQLException{
+    public Cliente buscarCliente (String email, Integer dni, Cliente cliente)throws SQLException{
      
+        Integer rst = 0;
+        Cliente unCliente = null;
+        Integer dnis = 0;
+        String emails = "";
+        
        try {
             Class.forName(driver);
             conect=DriverManager.getConnection(url,user,password);
+         
+            
+            
+            if(dni==null)
+          
+                    grabar=conect.prepareStatement("SELECT * FROM cliente WHERE email= ?");
+            
+            
+            else{
+                grabar=conect.prepareStatement("SELECT * FROM cliente WHERE dni= ?");
+                dnis=Integer.valueOf(dni);
+                
+            }
+             ResultSet resultado = grabar.executeQuery();
+             
+                while(resultado.next()){
+                    unCliente = new Cliente (Integer.parseInt(resultado.getString("id"), resultado.getString("nombre"),Integer.parseInt(resultado.getString("dni")), resultado.getString("email"), resultado.getString("telefono"), resultado.getString("celular"), resultado.getString("calle"), resultado.getString("altura"), resultado.getString("pisoDto"));
+                }
+                
+                      
+      }catch(SQLException ex){
+         throw new SQLException(ex);
+      } catch (ClassNotFoundException ex) {
+           Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       return unCliente;
+    }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+   
+     /* 
+  
+  
             grabar=conect.prepareStatement("SELECT * FROM cliente WHERE email=? ");
             grabar.setString(1, cliente.getEmail());
             ResultSet resultado = grabar.executeQuery();
             
             if(resultado.next())
             {
-                cliente.setId(Integer.parseInt(resultado.getString("id")));
+            //    cliente.setId(Integer.parseInt(resultado.getString("id")));
                 cliente.setNombre(resultado.getString("nombre"));
                 cliente.setApellido(resultado.getString("apellido"));
                 cliente.setDni(Integer.parseInt(resultado.getString("dni")));
@@ -111,75 +156,21 @@ public class Consulta {
                 cliente.setAltura(resultado.getString("altura"));
                 cliente.setPisoDto(resultado.getString("pisoDto"));
             }
-                    
-              /*      
-            if(email!=null)
-          
-                    grabar=conect.prepareStatement("SELECT * FROM cliente WHERE dni= ?");
-            
-            else{
-                grabar=conect.prepareStatement("SELECT * FROM cliente WHERE email= ?");
-                
-            }*/
+             
             
       }catch(SQLException ex){
          throw new SQLException(ex);
       } catch (ClassNotFoundException ex) {
            Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
        }
-     conect.close();
-   }
+       return unCliente;
+     
+   }   catch (ClassNotFoundException ex) {
+           Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
+       }
+           
     
     
-       
-      
-    
-   
-   /*
-   public static Cliente buscarCliente (String email)throws SQLException{
-   
-       Cliente unCliente = null;
-       //String q = "SELECT * FROM cliente" + " WHERE email='"+email+"'";
-       try{
-    
-         conect=DriverManager.getConnection(url,user,password);
-         PreparedStatement consulta = conect.prepareStatement("SELECT * FROM cliente" + " WHERE email='"+email+"'");
-         ResultSet resultado = consulta.executeQuery();
-
-      }catch(SQLException e){
-         JOptionPane.showMessageDialog(null, e);
-      }
-      unCliente= asignarCliente();
-        
-      return unCliente;
-   }
-   
-   public static Cliente asignarCliente(){
-             Cliente unCliente = null;
-             String nombre;
-             String apellido;
-             Integer dni;
-             String email;
-             String telefono;
-             String celular;
-             String calle;
-             String altura;
-             String pisoDto;
-        try {
-               while(resultado.next()){
-            rst = resultado.getInt(1);
-         }
-        } catch (Exception e) {
-        }
-      
-      return unCliente;
-                
-    }
-   
-   */
-     /* 
-  
-  
    public ArrayList<Cliente> recuperarTodas(Connection conexion) throws SQLException{
       ArrayList<Mewrua> tareas = new ArrayList<>();
       try{
@@ -198,39 +189,6 @@ public class Consulta {
 
 
    
-      public void actualizarCliente(String palabra) throws SQLException{
-       try {
-            Class.forName(driver);
-            conect=DriverManager.getConnection(url,user,password);
-           // s=conect.prepareStatement("UPDATE palabras SET palabra'"+texto.getText());
-          //  grabar=conect.prepareStatement("UPDATE cliente SET palabra='"+texto.getText()+"'");
-            grabar.setString(1, palabra);
-            grabar.executeUpdate();
-
-           // for(int j=0
-              
-           } 
-        catch (ClassNotFoundException e) {
-              JOptionPane.showMessageDialog(null, e);}
-       
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e);
-        }
-       conect.close();
-   }
-   
-   public void borrarPorID(String cliente, Integer id) throws SQLException{
-      try{
-         conect=DriverManager.getConnection(url,user,password);
-         PreparedStatement consulta = conect.prepareStatement("DELETE FROM " + cliente + " WHERE id = ?");
-         consulta.setInt(1, id);
-         consulta.executeUpdate();
-      }catch(SQLException e){
-         JOptionPane.showMessageDialog(null, e);
-      }
-       conect.close();
-   }
-  
    public Integer obtenerMaxID(String cliente) throws SQLException{
      Integer rst = 0; 
      try{
@@ -268,6 +226,6 @@ public class Consulta {
        return rst;
    }
 */
-      }
+      
       
       
