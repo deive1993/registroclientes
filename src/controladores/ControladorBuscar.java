@@ -42,13 +42,11 @@ public class ControladorBuscar implements MouseListener{
     private JTextField txtAltura;
     private JTextField txtPiso;
     
-    
     public ControladorBuscar(JTextField txtDnis, JTextField txtEmails) {
         this.txtDnis = txtDnis;
         this.txtEmails = txtEmails;
     }
 
-    
         public ControladorBuscar(JTextField txtNombre, JTextField txtApellido, JTextField txtDni, JTextField txtEmail, JTextField txtTelefono, JTextField txtCelular, JTextField txtCalle, JTextField txtAltura, JTextField txtPiso) {
         this.txtNombre = txtNombre;
         this.txtApellido = txtApellido;
@@ -78,34 +76,58 @@ public class ControladorBuscar implements MouseListener{
     
         @Override
     public void mouseClicked(MouseEvent e) {
-        Cliente unCliente = null;
+       
         Consulta consulta = new Consulta();
- 
-   Cliente  cliente  = new Cliente(txtNombre.setText(cliente.getNombre()), txtApellido.setText(cliente.getApellido()), txtDni.setText(String.valueOf(cliente.getDni())), txtEmail.setText(cliente.getEmail()), txtTelefono.setText(cliente.getTelefono()), txtCelular.setText(cliente.getCelular()), txtCalle.setText(cliente.getCalle()), txtAltura.setText(cliente.getAltura()), txtPiso.setText(cliente.getPisoDto()));
-           
-  
-   
+       Cliente datos=null;
+
+        /*
+        Cliente cliente = new Cliente(txtNombre.setText(cliente.getNombre()), txtApellido.setText(cliente.getApellido()), 
+                txtDni.setText(String.valueOf(cliente.getDni())), txtEmail.setText(cliente.getEmail()), txtTelefono.setText(cliente.getTelefono()), 
+                txtCelular.setText(cliente.getCelular()), txtCalle.setText(cliente.getCalle()), txtAltura.setText(cliente.getAltura()), 
+                txtPiso.setText(cliente.getPisoDto()));
+           */
          try {
-             
-             if(unCliente == null){
-                Registro registrar = new Registro();
-                registrar.setVisible(true);
-            }else{
-                 cliente.setEmail(txtEmails.getText());
-                consulta.buscarCliente(cliente);
-                Registro registrar = new Registro(cliente);
-                registrar.setVisible(true);
-           JOptionPane.showMessageDialog(null, "datos guardadas exitosamente");
-            }
-          
-       } 
+           if (txtEmails.getText().equals("")){
+               System.out.println("dni loco");
+               txtEmails.setVisible(false);
+             datos = consulta.buscarCliente(null,txtDnis.getText());
+               if(datos==null){
+                   System.out.println("no hay nadita amigo");
+                   
+               }
+               else{
+                     Registro registrar = new Registro();
+                     
+                    System.out.println(datos.getId());
+                    System.out.println(datos.getNombre());
+                    System.out.println(datos.getApellido());
+                    System.out.println(datos.getDni());
+                   System.out.println(datos.getEmail());
+                   System.out.println(datos.getTelefono());
+                   System.out.println(datos.getCelular());
+                   System.out.println(datos.getCalle());
+                   System.out.println(datos.getAltura());
+                   System.out.println(datos.getPisoDto());
+                   
+                   
+                   
+               }
+               
+           }   
+            else
+               if(txtDnis.getText().equals(0)){
+               txtDni.setVisible(false);
+               System.out.println("email loco");
+               consulta.buscarCliente(txtEmails.getText(),null);
+               }
+           } catch (SQLException ex) {
+            Logger.getLogger(ControladorBuscar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           JOptionPane.showMessageDialog(null, "Conexion Establecida");
      
-       catch (SQLException ex) {
-           Logger.getLogger(ControladorBuscar.class.getName()).log(Level.SEVERE, null, ex);
        }
-    
-               limpiar();
-    }
+        
+        
     
     @Override
     public void mousePressed(MouseEvent e) {

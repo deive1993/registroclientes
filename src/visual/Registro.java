@@ -6,6 +6,7 @@
 package visual;
 
 import controladores.ControladorBuscar;
+import controladores.ControladorBuscarRe;
 import controladores.ControladorCancelar;
 import controladores.ControladorGrabar;
 import java.sql.Connection;
@@ -47,6 +48,10 @@ public class Registro extends javax.swing.JFrame {
         
         controladorCancelar = new ControladorCancelar();
         btnCancelar.addMouseListener(controladorCancelar);
+        
+        controladorBuscarRe = new ControladorBuscarRe(txtNombre, txtApellido, txtDni, txtEmail, txtTelefono, txtCelular, txtCalle, txtAltura, txtPiso);
+        btnBuscar.addMouseListener(controladorBuscarRe);
+        
     }
 
     public Registro(Cliente cliente) {
@@ -398,7 +403,7 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-    
+    /*
                  try {
             Class.forName(driver);
             conect=DriverManager.getConnection(url,user,password);
@@ -426,12 +431,12 @@ public class Registro extends javax.swing.JFrame {
             Logger.getLogger(ControladorBuscar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
               Logger.getLogger(ControladorBuscar.class.getName()).log(Level.SEVERE, null, ex);
-          }
+          }*/
         
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-
+/*
                  try {
             Class.forName(driver);
             conect=DriverManager.getConnection(url,user,password);
@@ -451,6 +456,7 @@ public class Registro extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
               Logger.getLogger(ControladorBuscar.class.getName()).log(Level.SEVERE, null, ex);
           }
+                 */
             }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
@@ -487,4 +493,5 @@ public class Registro extends javax.swing.JFrame {
 
    private ControladorCancelar controladorCancelar;
    private ControladorGrabar controladorGrabar;
+   private ControladorBuscarRe controladorBuscarRe;
 }

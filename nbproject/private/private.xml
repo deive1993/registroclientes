@@ -4,7 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/PROYECTOS/registroclientes/src/controladores/ControladorGrabar.java</file>
-            <file>file:/D:/PROYECTOS/registroclientes/src/visual/Registro.java</file>
+            <file>file:/D:/PROYECTOS/registroclientes/src/controladores/ControladorBuscarRe.java</file>
             <file>file:/D:/PROYECTOS/registroclientes/src/clienteDAO/Consulta.java</file>
             <file>file:/D:/PROYECTOS/registroclientes/src/controladores/ControladorBuscar.java</file>
         </group>

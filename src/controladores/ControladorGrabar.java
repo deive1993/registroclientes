@@ -30,7 +30,8 @@ public class ControladorGrabar implements MouseListener{
     private JTextField txtAltura;
     private JTextField txtPiso;
 
-    public ControladorGrabar(JTextField txtNombre, JTextField txtApellido, JTextField txtDni, JTextField txtEmail, JTextField txtTelefono, JTextField txtCelular, JTextField txtCalle, JTextField txtAltura, JTextField txtPiso) {
+    public ControladorGrabar(JTextField txtNombre, JTextField txtApellido, JTextField txtDni, JTextField txtEmail, 
+            JTextField txtTelefono, JTextField txtCelular, JTextField txtCalle, JTextField txtAltura, JTextField txtPiso) {
         this.txtNombre = txtNombre;
         this.txtApellido = txtApellido;
         this.txtDni = txtDni;
@@ -61,7 +62,8 @@ public class ControladorGrabar implements MouseListener{
     @Override
     public void mouseClicked(MouseEvent e) {
         Consulta consulta = new Consulta();
-        Cliente cliente = new Cliente(txtNombre.getText(), txtApellido.getText(), Integer.valueOf(txtDni.getText()) , txtEmail.getText(), txtTelefono.getText(), txtCelular.getText(), txtCalle.getText(), txtAltura.getText(), txtPiso.getText());
+        Cliente cliente = new Cliente(txtNombre.getText(), txtApellido.getText(), Integer.valueOf(txtDni.getText()) , txtEmail.getText(), 
+                txtTelefono.getText(), txtCelular.getText(), txtCalle.getText(), txtAltura.getText(), txtPiso.getText());
         
         System.out.println("datos guardados");
                try {
@@ -70,7 +72,6 @@ public class ControladorGrabar implements MouseListener{
            
            JOptionPane.showMessageDialog(null, "datos guardadas exitosamente");
        } 
-     //  int dni = Integer.parseInt(txtDni);
        catch (SQLException ex) {
            Logger.getLogger(ControladorGrabar.class.getName()).log(Level.SEVERE, null, ex);
        }
